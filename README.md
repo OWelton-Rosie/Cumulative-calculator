@@ -14,3 +14,4 @@ In your terminal, enter the following command:
 ```
 git clone https://github.com/OWelton-Rosie/Cumulative-calculator
 ```
+This project has no dependencies. 
