@@ -10,8 +10,10 @@ This is the repository for <a href="https://cumulative.pages.dev/">https://cumul
 - Ability to see by how much the cumulative time limit has been exceeded.
 
 # Development
-In your terminal, enter the following command:
+## Running the project locally
+Run the command:
 ```
-git clone https://github.com/OWelton-Rosie/Cumulative-calculator
+git clone https://github.com/OWelton-Rosie/wca-profile-link-shortener
 ```
-This project has no dependencies. 
+
+This project has no dependencies.
