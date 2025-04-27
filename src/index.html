@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-NZ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,33 +12,29 @@
     <div class="container">
         <h2>Cumulative Time Limit Calculator</h2>
 
-        <label for="timeLimit">Enter <a href="#" class="term" data-definition="The total amount of time limit allotted for a BoX, Mo3, or Ao5 format.">Cumulative</a> Time Limit</a> (mm:ss.ms):</label>
+        <label for="timeLimit">Enter Cumulative Time Limit (mm:ss.ms)</label>
 
         <div id="definition-box" class="hidden"></div>
 
-        
-        
         <input type="text" id="timeLimit" placeholder="10:00.000" oninput="checkTimeLimit()">
 
         <h3>Attempts</h3>
 
         <div id="solveTimesContainer"></div>
 
-
         <button onclick="addSolveTimeBox()">Add attempt</button>
+
+        <br>
+        <br>
 
         <p id="result"></p>
 
         <br>
         <br>
 
-
         <h3>Written by <a href="https://owelton-rosie.pages.dev" target="_blank">Oscar Welton-Rosie</a>. <a href="https://github.com/OWelton-Rosie/Cumulative-calculator" target="_blank">GitHub</a>.</h3>
 
-
-
     </div>
-
 
     <script src="./js/logic.js"></script>
     <script src="./js/definition.js"></script>
@@ -55,7 +51,18 @@
                 });
             });
         }
- </script>
+
+        // Reset Times Function
+        function resetTimes() {
+            // Clear the time limit input
+            document.getElementById('timeLimit').value = '';
+
+            // Clear all attempt time inputs
+            document.getElementById('solveTimesContainer').innerHTML = '';
+
+
+        }
+    </script>
 
 </body>
 </html>
