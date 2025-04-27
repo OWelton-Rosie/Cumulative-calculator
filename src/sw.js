@@ -4,7 +4,6 @@ const assets = [
     '/index.html',
     '/style.css',  
     '/js/logic.js',    // Updated path to js folder
-    '/js/definition.js',  // Updated path to js folder
     '/js/warn-exit.js',  // Updated path to js folder
 ];
 
