@@ -1,9 +1,12 @@
+// Whether to allow multiple digits for minutes (controlled by checkbox)
+let allowMultiDigitMinutes = false;
+
 function addSolveTimeBox() {
     const container = document.getElementById("solveTimesContainer");
     const input = document.createElement("input");
 
     input.type = "text";
-    input.placeholder = "mm:ss.ms"; // Notice dot instead of colon for ms
+    input.placeholder = allowMultiDigitMinutes ? "mm:ss.ms" : "m:ss.ms";
     input.className = "solveTime";
     input.addEventListener("input", formatWhileTyping);
 
@@ -13,37 +16,41 @@ function addSolveTimeBox() {
 
 function formatWhileTyping(event) {
     const input = event.target;
-    let value = input.value.replace(/\D/g, ''); // Remove all non-digits
-
-    if (value.length > 6) value = value.slice(0, 6); // Limit to 6 digits max
-
-    let formatted = '';
-    if (value.length > 0) formatted += value.slice(0, 2); // minutes
-    if (value.length > 2) formatted += ':' + value.slice(2, 4); // seconds
-    if (value.length > 4) formatted += '.' + value.slice(4, 6); // milliseconds
-
-    input.value = formatted;
+    input.value = formatTimeInputValue(input.value);
     checkTimeLimit();
 }
 
-// This function now formats the time limit input too
 function formatTimeLimitWhileTyping(event) {
     const input = event.target;
-    let value = input.value.replace(/\D/g, ''); // Remove all non-digits
+    input.value = formatTimeInputValue(input.value);
+    checkTimeLimit();
+}
 
-    if (value.length > 6) value = value.slice(0, 6); // Limit to 6 digits max
+function formatTimeInputValue(rawValue) {
+    let value = rawValue.replace(/\D/g, ''); // Remove all non-digits
+
+    if (!allowMultiDigitMinutes) {
+        if (value.length > 5) value = value.slice(0, 5); // 1m 2s 2ms
+    } else {
+        if (value.length > 6) value = value.slice(0, 6); // 2m 2s 2ms
+    }
 
     let formatted = '';
-    if (value.length > 0) formatted += value.slice(0, 2); // minutes
-    if (value.length > 2) formatted += ':' + value.slice(2, 4); // seconds
-    if (value.length > 4) formatted += '.' + value.slice(4, 6); // milliseconds
+    if (!allowMultiDigitMinutes) {
+        if (value.length > 0) formatted += value.charAt(0);
+        if (value.length > 1) formatted += ':' + value.slice(1, 3);
+        if (value.length > 3) formatted += '.' + value.slice(3, 5);
+    } else {
+        if (value.length > 0) formatted += value.slice(0, 2);
+        if (value.length > 2) formatted += ':' + value.slice(2, 4);
+        if (value.length > 4) formatted += '.' + value.slice(4, 6);
+    }
 
-    input.value = formatted;
-    checkTimeLimit();
+    return formatted;
 }
 
 function timeToSeconds(timeStr) {
-    const parts = timeStr.trim().split(/[:.]/).map(Number); // split by colon and dot
+    const parts = timeStr.trim().split(/[:.]/).map(Number);
 
     if (parts.length === 3) {
         const [minutes, seconds, milliseconds] = parts;
@@ -80,14 +87,13 @@ function checkTimeLimit() {
     const hasAnyTimeEntered = times.some(time => time > 0);
 
     if (!hasAnyTimeEntered) {
-        resultDisplay.innerHTML = ''; // If no time is entered
+        resultDisplay.innerHTML = '';
         resultDisplay.style.color = '';
         return;
     }
 
     const totalTime = times.reduce((sum, time) => sum + time, 0);
 
-    // Format the total time as mm:ss.ms and update the result box
     resultDisplay.innerHTML = `Total elapsed time: ${formatTime(totalTime)}`;
 
     if (totalTime > timeLimit) {
@@ -108,10 +114,28 @@ function checkTimeLimit() {
 }
 
 window.addEventListener("load", () => {
-    // Format the time limit input as soon as the page loads
     const timeLimitInput = document.getElementById("timeLimit");
     if (timeLimitInput) {
+        timeLimitInput.placeholder = allowMultiDigitMinutes ? "mm:ss.ms" : "m:ss.ms";
         timeLimitInput.addEventListener("input", formatTimeLimitWhileTyping);
+    }
+
+    const toggleMinutesCheckbox = document.getElementById("allowMultiDigitMinutes");
+    if (toggleMinutesCheckbox) {
+        toggleMinutesCheckbox.addEventListener("change", (e) => {
+            allowMultiDigitMinutes = e.target.checked;
+
+            // Update placeholder and reformat values
+            if (timeLimitInput) {
+                timeLimitInput.placeholder = allowMultiDigitMinutes ? "mm:ss.ms" : "m:ss.ms";
+                timeLimitInput.value = formatTimeInputValue(timeLimitInput.value);
+            }
+            const solveTimeInputs = document.querySelectorAll(".solveTime");
+            solveTimeInputs.forEach(input => {
+                input.placeholder = allowMultiDigitMinutes ? "mm:ss.ms" : "m:ss.ms";
+                input.value = formatTimeInputValue(input.value);
+            });
+        });
     }
 
     const defaultBoxes = 3;
