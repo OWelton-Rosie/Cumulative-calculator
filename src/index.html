@@ -12,8 +12,19 @@
     <div class="container">
         <h2>Cumulative Time Limit Calculator</h2>
 
-        <label for="timeLimit">Enter Cumulative Time Limit (mm:ss.ms)</label>
+        <br>
 
+       <label>
+        Allow multi-digit minutes?
+        <br>
+    </label>
+        <input type="checkbox" id="allowMultiDigitMinutes">
+
+ 
+    
+    <br>
+    <br>
+        
         <div id="definition-box" class="hidden"></div>
 
         <input type="text" id="timeLimit" placeholder="10:00.000" oninput="checkTimeLimit()">
