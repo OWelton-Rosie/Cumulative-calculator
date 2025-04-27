@@ -13,7 +13,7 @@ This is the repository for <a href="https://cumulative.pages.dev/">https://cumul
 ## Running the project locally
 Run the command:
 ```
-git clone https://github.com/OWelton-Rosie/wca-profile-link-shortener
+git clone https://github.com/OWelton-Rosie/Cumulative-calculator
 ```
 
 This project has no dependencies.
