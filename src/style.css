@@ -106,3 +106,9 @@ h3 a {
 h3 a:hover {
     color:#0e800e
 }
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
