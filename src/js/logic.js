@@ -94,7 +94,7 @@ function checkTimeLimit() {
     const hasAnyTimeEntered = times.some(time => time > 0);
 
     if (!hasAnyTimeEntered) {
-        resultDisplay.innerHTML = '';
+        resultDisplay.innerHTML = 'Enter times to calculate total.';
         resultDisplay.style.color = '';
         return;
     }
@@ -128,9 +128,6 @@ function validateSecondsField(input) {
         if (seconds >= 60) {
             input.style.borderColor = "red";
             input.title = "Seconds cannot be 60 or more";
-        } else if (seconds >= 12) {
-            input.style.borderColor = "red";
-            input.title = "Seconds must be less than 12 (duodecimal)";
         } else {
             input.style.borderColor = "";
             input.title = "";
@@ -153,18 +150,20 @@ document.addEventListener("DOMContentLoaded", () => {
         toggleMinutesCheckbox.addEventListener("change", (e) => {
             allowMultiDigitMinutes = e.target.checked;
 
-            // Update placeholder and reformat values
             if (timeLimitInput) {
                 timeLimitInput.placeholder = getTimePlaceholder();
                 timeLimitInput.value = formatTimeInputValue(timeLimitInput.value);
                 validateSecondsField(timeLimitInput);
             }
+
             const solveTimeInputs = document.querySelectorAll(".solveTime");
             solveTimeInputs.forEach(input => {
                 input.placeholder = getTimePlaceholder();
                 input.value = formatTimeInputValue(input.value);
                 validateSecondsField(input);
             });
+
+            checkTimeLimit(); // Re-check with updated format
         });
     }
 
@@ -172,4 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; i < defaultBoxes; i++) {
         addSolveTimeBox();
     }
+
+    checkTimeLimit(); // Ensure default message shows up on load
 });
