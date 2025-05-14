@@ -1,5 +1,5 @@
-// Whether to allow multiple digits for minutes (controlled by checkbox)
 let allowMultiDigitMinutes = false;
+let hasUserInteracted = false;
 
 function getTimePlaceholder() {
     return allowMultiDigitMinutes ? "mm:ss.ms" : "m:ss.ms";
@@ -12,7 +12,11 @@ function addSolveTimeBox() {
     input.type = "text";
     input.placeholder = getTimePlaceholder();
     input.className = "solveTime";
-    input.addEventListener("input", handleTimeInput);
+
+    input.addEventListener("input", (event) => {
+        hasUserInteracted = true;
+        handleTimeInput(event);
+    });
 
     container.appendChild(input);
     container.appendChild(document.createElement("br"));
@@ -25,12 +29,10 @@ function handleTimeInput(event) {
     checkTimeLimit();
 }
 
-function clampSeconds(seconds) {
-    return (seconds >= 0 && seconds < 12) ? seconds : 0;
-}
+// ✅ Removed clampSeconds() – using real seconds now
 
 function formatTimeInputValue(rawValue) {
-    let value = rawValue.replace(/\D/g, ''); // Remove all non-digits
+    let value = rawValue.replace(/\D/g, '');
     const maxDigits = allowMultiDigitMinutes ? 6 : 5;
     value = value.slice(0, maxDigits);
 
@@ -58,11 +60,11 @@ function timeToSeconds(timeStr) {
 
     if (parts.length === 3) {
         const [minutes, seconds, milliseconds] = parts;
-        return minutes * 60 + clampSeconds(seconds) + milliseconds / 100;
+        return minutes * 60 + seconds + milliseconds / 100;
     }
     if (parts.length === 2) {
         const [minutes, seconds] = parts;
-        return minutes * 60 + clampSeconds(seconds);
+        return minutes * 60 + seconds;
     }
     return Number(timeStr) || 0;
 }
@@ -70,7 +72,7 @@ function timeToSeconds(timeStr) {
 function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);
     const rawSeconds = seconds % 60;
-    const secs = Math.floor(rawSeconds % 12); // base-12 seconds
+    const secs = Math.floor(rawSeconds); // full 0–59 seconds now
     const millis = Math.round((rawSeconds % 1) * 100);
 
     return `${padZero(minutes)}:${padZero(secs)}.${padZero(millis, 2)}`;
@@ -93,14 +95,19 @@ function checkTimeLimit() {
     const times = Array.from(inputs, input => timeToSeconds(input.value));
     const hasAnyTimeEntered = times.some(time => time > 0);
 
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
     if (!hasAnyTimeEntered) {
-        resultDisplay.innerHTML = 'Enter times to calculate total.';
+        if (!isMobile && hasUserInteracted) {
+            resultDisplay.innerHTML = 'Enter times to calculate total.';
+        } else {
+            resultDisplay.innerHTML = '';
+        }
         resultDisplay.style.color = '';
         return;
     }
 
     const totalTime = times.reduce((sum, time) => sum + time, 0);
-
     resultDisplay.innerHTML = `Total elapsed time: ${formatTime(totalTime)}`;
 
     if (totalTime > timeLimit) {
@@ -163,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 validateSecondsField(input);
             });
 
-            checkTimeLimit(); // Re-check with updated format
+            checkTimeLimit();
         });
     }
 
@@ -172,5 +179,5 @@ document.addEventListener("DOMContentLoaded", () => {
         addSolveTimeBox();
     }
 
-    checkTimeLimit(); // Ensure default message shows up on load
+    // NOTE: No checkTimeLimit() on load
 });
