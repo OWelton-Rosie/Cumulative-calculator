@@ -1,15 +1,28 @@
-/* General body styles */
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* Reset and base styles */
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Center-align content in container */
+html, body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    width: 100%;
+    min-height: 100%;
+}
+
+/* Use flex column to allow scrolling and vertical centering */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    padding-top: env(safe-area-inset-top, 20px); /* iOS notch support */
+}
+
+/* Container styles */
 .container {
     text-align: center;
     background-color: #fff;
@@ -38,14 +51,12 @@ label {
 /* Input field style */
 input {
     width: 100%;
-    padding: 10px; /* Uniform padding on all sides */
+    padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 20px;
-    box-sizing: border-box; /* Ensures padding is included in the width */
 }
-
 
 /* Button style */
 button {
@@ -63,52 +74,36 @@ button:hover {
     background-color: #0c8b0c;
 }
 
-
-/* Result paragraph style */
+/* Result paragraph */
 p#result {
     font-size: 18px;
     color: #333;
     margin-top: 20px;
 }
 
-/* Bttm links (h3 a) */
- a {
-    color:#3498db;
-    display: inline-block;
-    border-radius: 6px;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-a:hover {
-    color:#276e9e;
-    display: inline-block;
-    border-radius: 6px;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-.hidden {
-    display: none;
-}
-
+/* Link styles */
 a {
     color: #007BFF;
     text-decoration: none;
+    display: inline-block;
+    border-radius: 6px;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 a:hover {
+    color: #276e9e;
     text-decoration: underline;
 }
 
 h3 a {
-    color:#0fb00f
+    color: #0fb00f;
 }
 
 h3 a:hover {
-    color:#0e800e
+    color: #0e800e;
 }
 
-input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+/* Utility */
+.hidden {
+    display: none;
 }
