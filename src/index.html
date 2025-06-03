@@ -1,78 +1,76 @@
 <!DOCTYPE html>
 <html lang="en-NZ">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A simple speedcubing cumulative time limit calculator.">
-    <title>Cumulative Time Limit Calculator</title>
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A simple speedcubing cumulative time limit calculator.">
+  <title>Cumulative Time Limit Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .js-required {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    
+
+  <noscript>
+    <div style="padding: 2rem; font-size: 1.2rem;">
+      You need to enable JavaScript to run this app.
+      <a href="https://www.enable-javascript.com/" target="_blank">How?</a>
+    </div>
+  </noscript>
+
+  <div class="container js-required">
+    <br><br>
+    <h1>Cumulative Time Limit Calculator</h1>
     <br>
 
-
-    <div class="container">
-        <noscript>You need to enable JavaScript to run this app. <a href="https://www.enable-javascript.com/" target="_blank">How?</a></noscript>
-
-        <br>
-        <br>
-
-        <h1>Cumulative Time Limit Calculator</h1>
-
-        <br>
-
-       <label>
-        Allow multi-digit minutes?
-        <br>
+    <label>
+      Allow multi-digit minutes?
+      <br>
+      <input type="checkbox" id="allowMultiDigitMinutes">
     </label>
-        <input type="checkbox" id="allowMultiDigitMinutes">
 
- 
-    
+    <h2>Enter cumulative time limit</h2>
+    <input type="text" id="timeLimit" placeholder="10:00.000" oninput="checkTimeLimit()">
 
-         <h2>Enter cumulative time limit</h2>
+    <h2>Attempts</h2>
+    <div id="solveTimesContainer"></div>
 
-        <input type="text" id="timeLimit" placeholder="10:00.000" oninput="checkTimeLimit()">
+    <button onclick="addSolveTimeBox()">Add attempt</button>
 
-        <h2>Attempts</h2>
+    <br><br>
+    <p id="result"></p>
+    <br><br>
 
-        <div id="solveTimesContainer"></div>
+    <h3>
+      Written by 
+      <a href="https://owelton-rosie.pages.dev" target="_blank">Oscar Welton-Rosie</a>. 
+      <a href="https://github.com/OWelton-Rosie/Cumulative-calculator" target="_blank">GitHub</a>.
+    </h3>
+  </div>
 
-        <button onclick="addSolveTimeBox()">Add attempt</button>
+  <script>
+    // Show content only if JS is enabled
+    document.querySelectorAll('.js-required').forEach(el => el.style.display = 'block');
+  </script>
 
-        <br>
-        <br>
+  <script src="./js/logic.js"></script>
+  <script src="./js/warn-exit.js"></script>
 
-        <p id="result"></p>
+  <script>
+    // Registering the Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }).catch((error) => {
+          console.log('Service Worker registration failed:', error);
+        });
+      });
+    }
+  </script>
 
-        <br>
-        <br>
-
-        <h3>Written by <a href="https://owelton-rosie.pages.dev" target="_blank">Oscar Welton-Rosie</a>. <a href="https://github.com/OWelton-Rosie/Cumulative-calculator" target="_blank">GitHub</a>.</h3>
-
-    </div>
-
-    <script src="./js/logic.js"></script>
-    <script src="./js/warn-exit.js"></script>
-
-    <script>
-        // Registering the Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then((registration) => {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                }).catch((error) => {
-                    console.log('Service Worker registration failed:', error);
-                });
-            });
-        }
-    </script>
-      
 </body>
 </html>
