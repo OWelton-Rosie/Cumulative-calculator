@@ -82,13 +82,15 @@ p#result {
 }
 
 
-h3 a {
+h3 a,
+h3 a:visited {
     color: #0431fc;
     text-decoration: none;
 }
 
-h3 a:hover {
-    color: #0c2581;
+h3 a:hover,
+h3 a:visited:hover {
+    color: #0c2b9d;
     text-decoration: none;
 }
 
