@@ -81,26 +81,15 @@ p#result {
     margin-top: 20px;
 }
 
-/* Link styles */
-a {
-    color: #007BFF;
-    text-decoration: none;
-    display: inline-block;
-    border-radius: 6px;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-a:hover {
-    color: #276e9e;
-    text-decoration: underline;
-}
 
 h3 a {
-    color: #0fb00f;
+    color: #0431fc;
+    text-decoration: none;
 }
 
 h3 a:hover {
-    color: #0e800e;
+    color: #0c2581;
+    text-decoration: underline;
 }
 
 /* Utility */
