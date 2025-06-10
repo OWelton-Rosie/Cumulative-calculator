@@ -89,7 +89,7 @@ h3 a {
 
 h3 a:hover {
     color: #0c2581;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* Utility */
