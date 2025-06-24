@@ -18,3 +18,6 @@ git clone https://github.com/OWelton-Rosie/Cumulative-calculator
 ```
 
 This project has no dependencies.
+
+# Todo
+- Add a button to allow the user to reset all the times entered into the calculator
