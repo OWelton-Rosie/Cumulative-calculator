@@ -1,0 +1,80 @@
+/* General page styling */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #fafafa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Top heading */
+.top-h1,
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+
+/* Main title */
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="checkbox"] {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+input[type="text"] {
+  width: 80%;
+  max-width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+/* Buttons */
+button {
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #005fcc;
+}
+
+/* Footer links */
+h3 a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+h3 a:hover {
+  text-decoration: underline;
+}
+
+/* Result message */
+#result {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+footer {
+    margin-top: 10%;
+}
